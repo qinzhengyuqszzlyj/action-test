@@ -1,0 +1,41 @@
+name: Open Websites with Puppeteer  
+  
+on:  
+  schedule:  
+    - cron: '0 12 * * *' # 每天中午 12:00 运行  
+  
+jobs:  
+  open-websites:  
+    runs-on: windows-latest  
+    steps:  
+      - name: Checkout code  
+        uses: actions/checkout@v2  
+  
+      - name: Set up Node.js  
+        uses: actions/setup-node@v2  
+        with:  
+          node-version: '16'  
+  
+      - name: Install puppeteer  
+        run: npm install puppeteer  
+  
+      - name: Open Websites with Puppeteer  
+        run: |  
+          node -e "  
+            const puppeteer = require('puppeteer');  
+            (async () => {  
+              const browser = await puppeteer.launch({ headless: false }); // 注意：在 GitHub Actions 中，headless 应该设置为 true，因为无头环境  
+              const page = await browser.newPage();  
+              const urls = [  
+                'https://shqibaoxindu.fandom.com/zh/',  
+                'https://suzhoumetro.fandom.com/zh/',  
+                'https://microsoft.fandom.com/zh/'  
+              ];  
+              for (let url of urls) {  
+                await page.goto(url, { waitUntil: 'networkidle0' });  
+                await page.waitForTimeout(30000); // 等待 30 秒  
+                // 注意：由于我们是在无头环境中运行，所以这里不会截图或进行其他 GUI 操作  
+              }  
+              await browser.close();  
+            })();  
+          "
