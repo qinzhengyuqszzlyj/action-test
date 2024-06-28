@@ -30,7 +30,8 @@ jobs:
               const page = await browser.newPage();  
               const urls = [  
                 'https://shqibaoxindu.fandom.com/zh/',  
-                'https://suzhoumetro.fandom.com/zh/',  
+                'https://suzhoumetro.fandom.com/zh/',
+                'https://changshametro.fandom.com/zh/',
                 'https://microsoft.fandom.com/zh/'  
               ];  
               for (let url of urls) {  
