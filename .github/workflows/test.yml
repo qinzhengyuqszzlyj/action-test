@@ -2,7 +2,9 @@ name: Open Websites with Puppeteer
   
 on:  
   schedule:  
-    - cron: '0 12 * * *' # 每天中午 12:00 运行  
+    - cron: '0 12 * * *' # 每天中午 12:00 运行 ，
+    
+  workflow_dispatch:
   
 jobs:  
   open-websites:  
